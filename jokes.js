@@ -17,21 +17,22 @@ const addJoke = () => {
     const joke = new Joke();
     const chance = new Chance();
 
-    let randomJoke = joke.getRandomJoke('en').joke;
-    const name = chance.name();
+    let randomJoke;
+    let name;
+    let duplicateJoke;
+    let duplicateName;
 
-    let duplicateJoke = jokes.find((joke) => joke.joke === randomJoke);
-    let duplicateName = jokes.find((joke) => joke.name === name);
-
-    while (duplicateJoke) {
+    do {
         randomJoke = joke.getRandomJoke('en').joke;
         duplicateJoke = jokes.find((joke) => joke.joke === randomJoke);
     }
+    while (duplicateJoke);  
 
-    while (duplicateName) {
+    do {
         name = chance.name();
         duplicateName = jokes.find((joke) => joke.name === name);
     }
+    while (duplicateName);
 
     const age = chance.age();
     const newJoke = {
@@ -53,13 +54,15 @@ const addByCategory = (category) => {
     const doesCatergoryExist = allCategories.find((listItem) => listItem.name === category);
 
     if (doesCatergoryExist) {
-        let categoryJoke = joke.getJoke({ category: category, lang: 'en'}).joke;
-        let duplicateJoke = jokes.find((joke) => joke.joke === categoryJoke);
-        while (duplicateJoke) {
+        let categoryJoke;
+        let duplicateJoke;
+            
+        do {
             categoryJoke = joke.getJoke({ category: category, lang: 'en'}).joke;
             duplicateJoke = jokes.find((joke) => joke.joke === categoryJoke);
         }
-    
+        while (duplicateJoke);
+
         const name = chance.name();
         const age = chance.age();
         const newJoke = {
